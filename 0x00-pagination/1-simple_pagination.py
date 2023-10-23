@@ -2,7 +2,8 @@
 """Simple pagination sample.
 """
 import csv
-from typing import List, Tuple
+import math
+from typing import List
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
