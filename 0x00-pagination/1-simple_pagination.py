@@ -1,32 +1,27 @@
 #!/usr/bin/env python3
-"""
-This module contains copies the function index_range
-the function takes two arguments page and page_size
-and the module also defines a class Server
+"""Simple pagination sample.
 """
 import csv
 import math
 from typing import List
 
 
-def index_range(page, page_size):
-    """Calculates the start and end indexes for a given page
-    and page size. Returns a tuple of size two which
-    contains a start index and an end index"""
-    start_index = (page - 1) * page_size
-    end_index = start_index + page_size
-
-    return start_index, end_index
+def index_range(page: int, page_size: int):
+    """Retrieves the index range from a given page and page size.
+    """
+    start = (page - 1) * page_size
+    end = start + page_size
+    return (start, end)
 
 
 class Server:
-    """
-    Server class to paginate a database of popular baby names.
+    """Server class to paginate a database of popular baby names.
     """
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
-        """initializes the class"""
+        """Initializes a new Server instance.
+        """
         self.__dataset = None
 
     def dataset(self) -> List[List]:
@@ -41,16 +36,13 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """that takes two integer arguments page with
-        default value 1 and page_size with default value 10.
+        """This retrieves a page of data.
         """
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page > 0
-
-        dataset = self.dataset()
-        start_index, end_index = index_range(page, page_size)
-
-        if start_index >= len(dataset):
+        assert type(page) == int and type(page_size) == int
+        assert page > 0 and page_size > 0
+        start, end = index_range(page, page_size)
+        data = self.dataset()
+        if start > len(data):
             return []
-
-        return dataset[start_index:end_index]
+        return data[start:end]
+    
