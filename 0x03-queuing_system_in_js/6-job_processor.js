@@ -1,4 +1,5 @@
 #!/usr/bin/yarn dev
+
 import { createQueue } from 'kue';
 
 const queue = createQueue();
